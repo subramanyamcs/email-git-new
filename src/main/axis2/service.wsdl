@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://bpms.intalio.com/tools/webservices/email" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://bpms.intalio.com/tools/webservices/email">
+    <wsdl:documentation>EmailWS</wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://bpms.intalio.com/tools/webservices/email">
+            <xsd:element name="EmailMessage" type="ns0:EmailMessageType"/>
+            <xsd:element name="Success" type="xsd:boolean"/>
+            <xsd:complexType name="EmailMessageType">
+                <xsd:sequence>
+                    <xsd:element name="From" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" name="To" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Cc" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Bcc" type="xsd:string"/>
+                    <xsd:element name="Subject" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Body">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:any/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="emailFault">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="reason" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="sendRequest">
+        <wsdl:part name="InputParameters" element="ns0:EmailMessage"/>
+    </wsdl:message>
+    <wsdl:message name="sendResponse">
+        <wsdl:part name="Response" element="ns0:Success"/>
+    </wsdl:message>
+    <wsdl:message name="emailFault">
+        <wsdl:part name="emailFault" element="ns0:emailFault"/>
+    </wsdl:message>
+    <wsdl:portType name="EmailWSPortType">
+        <wsdl:operation name="send">
+            <wsdl:input message="ns0:sendRequest" wsaw:Action="urn:send"/>
+            <wsdl:output message="ns0:sendResponse" wsaw:Action="urn:sendResponse"/>
+            <wsdl:fault message="ns0:emailFault" name="emailFault" wsaw:Action="urn:SendEmailemailFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EmailWSSOAP11Binding" type="ns0:EmailWSPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="send">
+            <soap:operation soapAction="urn:send" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EmailWS">
+        <wsdl:port name="EmailWSSOAP11port_http" binding="ns0:EmailWSSOAP11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/EmailWS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
