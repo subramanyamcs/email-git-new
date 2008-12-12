@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailMessage xmlns="http://bpms.intalio.com/tools/webservices/email">
+    <From>boisvert@intalio.com</From>
+    <To>boisvert@intalio.com</To>
+    <Subject>Email Service Test</Subject>
+    <Body><![CDATA[
+<html>
+  <body>
+    Hi, <b>this</b> is just a test! Déjà vû?
+  </body>
+</html>
+]]>
+    </Body>
+</EmailMessage>
+
