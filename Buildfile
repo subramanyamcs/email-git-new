@@ -34,7 +34,7 @@ define "com.intalio.bpms.connectors.email" do
   package(:aar).with :libs => [ ACTIVATION, JAVAMAIL, LOG4J, SLF4J ]
   
   CLASSPATH = Buildr.artifacts(LIBS.flatten).uniq.join(":") + 
-              ":" + project("EmailWS").compile.target.to_s + ":."
+              ":" + project("com.intalio.bpms.connectors.email").compile.target.to_s + ":."
   #puts "CLASSPATH: #{CLASSPATH}"
             
   task("sendXML" => [compile]) do
