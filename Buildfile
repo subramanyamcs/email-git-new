@@ -5,8 +5,7 @@ VERSION_NUMBER = "1.4-SNAPSHOT"
 repositories.remote = [ "http://www.intalio.org/public/maven2", "http://dist.codehaus.org/mule/dependencies/maven2/", "http://repo1.maven.org/maven2" ]
 
 repositories.release_to[:username] ||= "release"
-repositories.release_to[:url] ||= "sftp://www.intalio.org/var/www/public/maven2"
-repositories.release_to[:permissions] ||= 0664
+repositories.release_to[:url] ||= "sftp://release.intalio.com/home/release/m2repo"
 
 ACTIVATION = "javax.activation:activation:jar:1.1"
 AXIOM = group("axiom-api", "axiom-dom", "axiom-impl", :under=>"org.apache.ws.commons.axiom", :version=>"1.2.5")
@@ -23,9 +22,9 @@ WOODSTOX = [ "woodstox:wstx-asl:jar:3.2.1" ]
 LIBS = ACTIVATION, AXIOM, AXIS2, JAVAMAIL, LOG4J, SLF4J, STAX_API, WOODSTOX
 
 desc "Email Web Service"
-define "EmailWS" do
+define "com.intalio.bpms.connectors.email" do
   project.version = VERSION_NUMBER
-  project.group = "com.intalio.bpms.examples"
+  project.group = "com.intalio.bpms.connectors"
 
   compile.options.source = "1.5"
   compile.options.target = "1.5"
