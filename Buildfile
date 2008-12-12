@@ -1,6 +1,6 @@
 
 # Keep this structure to allow the build system to update version numbers.
-VERSION_NUMBER = "1.4-SNAPSHOT"
+VERSION_NUMBER = "1.5-SNAPSHOT"
 
 repositories.remote = [ "http://www.intalio.org/public/maven2", "http://dist.codehaus.org/mule/dependencies/maven2/", "http://repo1.maven.org/maven2" ]
 
