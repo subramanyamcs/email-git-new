@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<service name="EmailWS">
-    <description>Email Service</description>
-    <parameter name="ServiceClass" locked="false">com.intalio.bpms.examples.email.EmailService</parameter>
-    <operation name="send">
-        <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
-    </operation>
-</service>
