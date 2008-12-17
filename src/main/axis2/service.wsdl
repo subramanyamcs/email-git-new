@@ -6,8 +6,7 @@
         <xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://bpms.intalio.com/tools/webservices/email">
             <xsd:element name="EmailMessage" type="ns0:EmailMessageType"/>
             <xsd:element name="EmailWithXMLBody" type="ns0:EmailMessageType"/>
-            <xsd:element name="EmailWithTextBody" type="ns0:EmailMessageType"/>
-            <xsd:element name="EmailMessage" type="ns0:EmailMessageType"/>
+            <xsd:element name="EmailWithTextBody" type="ns0:TextEmailMessageType"/>
             <xsd:element name="Success" type="xsd:boolean"/>
             <xsd:complexType name="EmailMessageType">
                 <xsd:sequence>
@@ -23,6 +22,16 @@
                             </xsd:sequence>
                         </xsd:complexType>
                     </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="TextEmailMessageType">
+                <xsd:sequence>
+                    <xsd:element name="From" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" name="To" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Cc" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Bcc" type="xsd:string"/>
+                    <xsd:element name="Subject" type="xsd:string"/>
+                    <xsd:element minOccurs="1" maxOccurs="1" name="Body" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:element name="emailFault">
