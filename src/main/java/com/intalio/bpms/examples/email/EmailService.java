@@ -17,11 +17,13 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Map.Entry;
 
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.URLName;
@@ -115,7 +117,18 @@ public class EmailService {
                 }
             }
             
-            Session session = Session.getInstance(props);
+            Session session;
+            if (_config.authPassword == null) {
+                session = Session.getInstance(props);
+            } else {
+                Authenticator auth = new Authenticator() { 
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(_config.authUsername, _config.authPassword);
+                    }
+                };
+                session = Session.getInstance(props, auth);
+            }
+            
             if (LOG.isDebugEnabled())
                 session.setDebug(true);
     
@@ -166,9 +179,14 @@ public class EmailService {
     
             LOG.debug("Sending message: " + msg);
             msg.saveChanges();
-            URLName sendURL = new URLName(_config.sendURL);
-            Transport transport = createTransport(session, sendURL);
-            transport.sendMessage(msg, msg.getAllRecipients());
+            
+            if (_config.sendURL == null) {
+                Transport.send(msg);
+            } else {
+                URLName sendURL = new URLName(_config.sendURL);
+                Transport transport = createTransport(session, sendURL);
+                transport.sendMessage(msg, msg.getAllRecipients());
+            }
             LOG.debug("Message sent: " + msg);
     
             OMElement success = Constants.OM_FACTORY.createOMElement(Constants.SUCCESS);

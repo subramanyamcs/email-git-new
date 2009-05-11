@@ -25,6 +25,10 @@ public class EmailConfiguration {
     public String contentType = "text/html;charset=utf-8";
     
     public String returnAddress = "user@example.com";
+
+    public String authUsername = null;
+
+    public String authPassword = null;
     
     public Properties props = new Properties();
 
@@ -34,6 +38,8 @@ public class EmailConfiguration {
         config.sendURL = config.props.getProperty("sendURL");
         config.contentType = config.props.getProperty("contentType");
         config.returnAddress = config.props.getProperty("returnAddress");
+        config.authUsername = config.props.getProperty("authUsername");
+        config.authPassword = config.props.getProperty("authPassword");
         return config;
     }
 
