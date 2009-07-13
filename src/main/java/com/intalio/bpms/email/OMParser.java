@@ -10,7 +10,7 @@
  * Intalio inc. - initial API and implementation
  */
 
-package com.intalio.bpms.examples.email;
+package com.intalio.bpms.email;
 
 import java.io.StringWriter;
 import java.util.ArrayList;

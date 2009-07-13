@@ -38,11 +38,11 @@ define "com.intalio.bpms.connectors.email" do
   #puts "CLASSPATH: #{CLASSPATH}"
             
   task("sendXML" => [compile]) do
-    system "java -cp #{CLASSPATH} com.intalio.bpms.examples.email.SendEmail -xml EmailWS.properties test-email-xml.xml"
+    system "java -cp #{CLASSPATH} com.intalio.bpms.email.SendEmail -xml EmailWS.properties test-email-xml.xml"
   end
 
   task("sendText" => [compile]) do
-    system "java -cp #{CLASSPATH} com.intalio.bpms.examples.email.SendEmail -text EmailWS.properties test-email-text.xml"
+    system "java -cp #{CLASSPATH} com.intalio.bpms.email.SendEmail -text EmailWS.properties test-email-text.xml"
   end
   
 end
