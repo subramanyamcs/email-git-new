@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Java application to send emails based on configuration and email XML file.
  * <p>
- * Usage:  java com.intalio.bpms.examples.email.SendEmail [config_file] [email_xml_file]
+ * Usage:  java com.intalio.bpms.email.SendEmail [config_file] [email_xml_file]
  */
 public class SendEmail {
     private static final Logger LOG = LoggerFactory.getLogger(SendEmail.class);
