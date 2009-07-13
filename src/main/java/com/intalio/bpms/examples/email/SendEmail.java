@@ -86,9 +86,9 @@ public class SendEmail {
             StAXOMBuilder builder = new StAXOMBuilder(parser);
             OMElement xml =  builder.getDocumentElement();
             if (sendXML) {
-                service.sendWithXMLBody(xml);
+                service.sendEmailWithXMLBody(xml);
             } else {
-                service.sendWithTextBody(xml);
+                service.sendEmailWithTextBody(xml);
             }
         } catch (Exception e) {
             LOG.error("Error while sending email: ", e);

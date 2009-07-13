@@ -31,7 +31,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeUtility;
 
 import org.apache.axiom.om.OMElement;
 import org.apache.axis2.AxisFault;
@@ -77,12 +76,12 @@ public class EmailService {
      */
     public OMElement send(OMElement request) throws AxisFault {
         LOG.debug("send()");
-        return sendWithXMLBody(request);
+        return sendEmailWithXMLBody(request);
     }
 
-    public OMElement sendWithXMLBody(OMElement request) throws AxisFault {
+    public OMElement sendEmailWithXMLBody(OMElement request) throws AxisFault {
         try {
-            LOG.debug("sendWithXMLBody()");
+            LOG.debug("sendEmailWithXMLBody()");
             EmailMessage email = EmailMessage.parseWithXMLBody(request);
             return send(email);
         } catch (Exception e) {
@@ -94,9 +93,9 @@ public class EmailService {
     /**
      * Send email operation. See corresponding WSDL for XML schema description.
      */
-    public OMElement sendWithTextBody(OMElement request) throws AxisFault {
+    public OMElement sendEmailWithTextBody(OMElement request) throws AxisFault {
         try {
-            LOG.debug("sendWithTextBody()");
+            LOG.debug("sendEmailWithTextBody()");
             EmailMessage email = EmailMessage.parseWithTextBody(request);
             return send(email);
         } catch (Exception e) {
