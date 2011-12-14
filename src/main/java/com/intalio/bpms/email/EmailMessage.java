@@ -45,7 +45,10 @@ public class EmailMessage {
     private static EmailMessage parse(OMElement msg, boolean parseXmlBody) throws IOException {
         EmailMessage email = new EmailMessage();
         OMParser p = new OMParser(msg);
-        email.to = p.getStringArray(Constants.TO);
+        String toAddressValue = p.getRequiredString(Constants.TO);
+        if (toAddressValue  != null) {
+        	email.to = p.getStringArray(Constants.TO);
+        }
         email.from = p.getRequiredString(Constants.FROM);
         email.cc = p.getStringArray(Constants.CC);
         email.bcc = p.getStringArray(Constants.BCC);
