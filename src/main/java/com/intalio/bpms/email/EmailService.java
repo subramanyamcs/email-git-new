@@ -33,6 +33,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMNamespace;
 import org.apache.axis2.AxisFault;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,10 +87,21 @@ public class EmailService {
             return send(email);
         } catch (Exception e) {
             LOG.error("Error while sending email", e);
-            throw AxisFault.makeFault(e);
+            throw makeFault(e);
         }
     }
     
+    private AxisFault makeFault(Exception e) {
+    	OMElement response = null;
+        AxisFault axisFault = new AxisFault(e.getMessage(), e);
+        response = Constants.OM_FACTORY.createOMElement(Constants.INVALID_INPUT_FORMAT);
+        OMNamespace xmlnsNamespace = Constants.OM_FACTORY.createOMNamespace(Constants.XMLNS, Constants.EMAIL_NAMESPACE_PREFIX);
+        OMElement reasonElement = Constants.OM_FACTORY.createOMElement("reason", xmlnsNamespace, response);        
+        reasonElement.setText(e.getMessage());
+        axisFault.setDetail(response);      
+        return axisFault;
+    }
+
     /**
      * Send email operation. See corresponding WSDL for XML schema description.
      */
@@ -100,7 +112,7 @@ public class EmailService {
             return send(email);
         } catch (Exception e) {
             LOG.error("Error while sending email", e);
-            throw AxisFault.makeFault(e);
+            throw makeFault(e);
         }
     }
 
@@ -133,13 +145,17 @@ public class EmailService {
     
             MimeMessage msg = new MimeMessage(session);
     
-            msg.setFrom(new InternetAddress(email.from));
-            msg.setSender(new InternetAddress(email.from));
-            
+            // --from field
+            if (email.from == null || email.from.length() == 0)
+                throw new MessagingException("No From: address specified");
+
             // --to fields
             if (email.to == null)
                 throw new MessagingException("No To: address specified");
     
+            msg.setFrom(new InternetAddress(email.from));
+            msg.setSender(new InternetAddress(email.from));
+
             String tempTo = "";
             for (int i = 0; i < email.to.length; i++) {
                 LOG.debug("Adding To: field:" + email.to[i]);

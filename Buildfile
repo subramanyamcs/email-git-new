@@ -1,6 +1,6 @@
 
 # Keep this structure to allow the build system to update version numbers.
-VERSION_NUMBER = "1.8-SNAPSHOT"
+VERSION_NUMBER = "1.8"
 
 repositories.remote = [ "http://www.intalio.org/public/maven2", "http://dist.codehaus.org/mule/dependencies/maven2/", "http://repo1.maven.org/maven2" ]
 
@@ -33,8 +33,8 @@ define "com.intalio.bpms.connectors.email" do
 
   package(:aar).with :libs => [ ACTIVATION, JAVAMAIL, LOG4J, SLF4J ]
   
-  CLASSPATH = Buildr.artifacts(LIBS.flatten).uniq.join(":") + 
-              ":" + project("com.intalio.bpms.connectors.email").compile.target.to_s + ":."
+  #CLASSPATH = Buildr.artifacts(LIBS.flatten).uniq.join(":") + 
+  #            ":" + project("com.intalio.bpms.connectors.email").compile.target.to_s + ":."
   #puts "CLASSPATH: #{CLASSPATH}"
             
   task("sendXML" => [compile]) do
