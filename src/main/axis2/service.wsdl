@@ -89,6 +89,9 @@
             <wsdl:output>
                 <soap:body use="literal"/>
             </wsdl:output>
+	    <wsdl:fault name="emailFault">		
+		<soap:fault use="literal" name="emailFault" />
+	    </wsdl:fault>
         </wsdl:operation>
         <wsdl:operation name="sendEmailWithXMLBody">
             <soap:operation soapAction="urn:sendEmailWithXMLBody" style="document"/>
@@ -98,6 +101,9 @@
             <wsdl:output>
                 <soap:body use="literal"/>
             </wsdl:output>
+	    <wsdl:fault name="emailFault">		
+		<soap:fault use="literal" name="emailFault" />
+	    </wsdl:fault>
         </wsdl:operation>
         <wsdl:operation name="sendEmailWithTextBody">
             <soap:operation soapAction="urn:sendEmailWithTextBody" style="document"/>
@@ -107,6 +113,9 @@
             <wsdl:output>
                 <soap:body use="literal"/>
             </wsdl:output>
+	    <wsdl:fault name="emailFault">		
+		<soap:fault use="literal" name="emailFault" />
+	    </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
     
